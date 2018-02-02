@@ -1,4 +1,4 @@
-package com.incture.mobility.imagecachingpoc;
+package com.incture.mobility.imagecachingpoc.adapter;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.incture.mobility.imagecachingpoc.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class AttachmentAdapter extends RecyclerView.Adapter<AttachmentAdapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View root = LayoutInflater.from(mContext).inflate(R.layout.added_image_layout, parent, false);
+        View root = LayoutInflater.from(mContext).inflate(R.layout.layout_attached_image, parent, false);
         return new ViewHolder(root);
     }
 
@@ -53,7 +54,8 @@ public class AttachmentAdapter extends RecyclerView.Adapter<AttachmentAdapter.Vi
 
         public void bind(int position) {
             Uri uri = mImageUriList.get(position);
-            Picasso.with(mContext).load(uri).resize(80, 80).placeholder(R.drawable.ic_picture).into(imageView);
+            Picasso.with(mContext).load(uri).placeholder(R.drawable.ic_picture).into(imageView);
+
         }
     }
 }

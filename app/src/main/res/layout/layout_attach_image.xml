@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:background="@color/colorBackgroundSecondary"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/ic_photo_camera_black_24dp"
+        android:tint="@color/colorPrimary"/>
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="22dp"
+        app:srcCompat="@drawable/ic_insert_photo_black_24dp"
+        android:tint="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/choose_camera_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageView3"
+        android:layout_marginBottom="6dp"
+        android:layout_marginStart="32dp"
+        android:layout_toEndOf="@+id/imageView"
+        android:text="Take photo"
+        android:textColor="@color/colorBlack"
+        android:fontFamily="@font/roboto_regular"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/choose_gallery_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/choose_camera_button"
+        android:layout_alignTop="@+id/imageView3"
+        android:layout_marginTop="6dp"
+        android:text="Choose from gallery"
+        android:textColor="@color/colorBlack"
+        android:fontFamily="@font/roboto_regular"
+        android:textSize="14sp"/>
+</RelativeLayout>

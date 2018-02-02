@@ -1,4 +1,6 @@
-package com.incture.mobility.imagecachingpoc;
+package com.incture.mobility.imagecachingpoc.model;
+
+import java.util.UUID;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;

@@ -1,8 +1,10 @@
-package com.incture.mobility.imagecachingpoc;
+package com.incture.mobility.imagecachingpoc.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.incture.mobility.imagecachingpoc.AddNewCardActivity;
+import com.incture.mobility.imagecachingpoc.ViewCardDetailsActivity;
+import com.incture.mobility.imagecachingpoc.model.CardItem;
+import com.incture.mobility.imagecachingpoc.R;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.realm.RealmResults;
 
@@ -32,7 +41,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View rowView = LayoutInflater.from(mContext).inflate(R.layout.card_layout, parent, false);
+        View rowView = LayoutInflater.from(mContext).inflate(R.layout.layout_card_item, parent, false);
         return new ViewHolder(rowView);
     }
 
@@ -50,12 +59,9 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
 
         TextView titleTextView;
         TextView descriptionTextView;
-        ImageView imageView1;
-        ImageView imageView2;
-        ImageView imageView3;
-        ImageView imageView4;
-        ImageView imageView5;
         View cardView;
+        RecyclerView mImagesRecyclerView;
+        ImageView attachImageButton;
 
 
         public ViewHolder(View itemView) {
@@ -63,11 +69,9 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
             cardView = itemView;
             titleTextView = itemView.findViewById(R.id.title_textView);
             descriptionTextView = itemView.findViewById(R.id.description_textView);
-            imageView1 = itemView.findViewById(R.id.card_imageView1);
-            imageView2 = itemView.findViewById(R.id.card_imageView2);
-            imageView3 = itemView.findViewById(R.id.card_imageView3);
-            imageView4 = itemView.findViewById(R.id.card_imageView4);
-            imageView5 = itemView.findViewById(R.id.card_imageView5);
+            mImagesRecyclerView = itemView.findViewById(R.id.attached_image_recycler_view);
+            //attachImageButton = itemView.findViewById(R.id.attach_new_image_button);
+
         }
 
         public void bind(int position) {
@@ -76,23 +80,26 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.ViewHolder> 
             titleTextView.setText(item.getTitle());
             descriptionTextView.setText(item.getDescription());
 
+            List<Uri> uris = new ArrayList<>();
+            for (String value :
+                    item.getImageUris()) {
+                uris.add(Uri.parse(value));
+            }
+            AttachmentAdapter adapter = new AttachmentAdapter(mContext, uris);
+            mImagesRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 4));
+            mImagesRecyclerView.setAdapter(adapter);
+
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    Intent detailIntent = new Intent(mContext, CardDetailsActivity.class);
+                    Intent detailIntent = new Intent(mContext, ViewCardDetailsActivity.class);
                     detailIntent.putExtra("uid", item.getId());
                     mContext.startActivity(detailIntent);
 
                     Toast.makeText(mContext, item.getId(), Toast.LENGTH_SHORT).show();
                 }
             });
-
-            Picasso.with(mContext).load(item.getImageUris().get(0)).resize(50, 50).placeholder(R.drawable.ic_picture).into(this.imageView1);
-            Picasso.with(mContext).load(item.getImageUris().get(1)).resize(50, 50).placeholder(R.drawable.ic_picture).into(this.imageView2);
-            Picasso.with(mContext).load(item.getImageUris().get(2)).resize(50, 50).placeholder(R.drawable.ic_picture).into(this.imageView3);
-            Picasso.with(mContext).load(item.getImageUris().get(3)).resize(50, 50).placeholder(R.drawable.ic_picture).into(this.imageView4);
-            Picasso.with(mContext).load(item.getImageUris().get(4)).resize(50, 50).placeholder(R.drawable.ic_picture).into(this.imageView5);
 
         }
     }

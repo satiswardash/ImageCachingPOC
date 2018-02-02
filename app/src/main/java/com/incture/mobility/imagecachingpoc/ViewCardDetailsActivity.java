@@ -1,20 +1,18 @@
 package com.incture.mobility.imagecachingpoc;
 
-import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.incture.mobility.imagecachingpoc.model.CardItem;
 import com.squareup.picasso.Picasso;
 
 import io.realm.Realm;
 
-public class CardDetailsActivity extends AppCompatActivity {
+public class ViewCardDetailsActivity extends AppCompatActivity {
 
     TextView descriptionTextView;
     Toolbar toolbar;
@@ -53,7 +51,7 @@ public class CardDetailsActivity extends AppCompatActivity {
         //appBarTitleTextView.setText(cardItem.getTitle());
         toolbar.setTitle(cardItem.getTitle());
         descriptionTextView.setText(cardItem.getDescription());
-        Picasso.with(this).load(cardItem.getImageUris().get(3)).into(appBarImageView);
+        Picasso.with(this).load(Uri.parse(cardItem.getImageUris().get(0))).placeholder(getResources().getDrawable(R.drawable.ic_picture)).into(appBarImageView);
     }
 
     @Override

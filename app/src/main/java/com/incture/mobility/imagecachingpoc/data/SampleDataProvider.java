@@ -1,7 +1,9 @@
-package com.incture.mobility.imagecachingpoc;
+package com.incture.mobility.imagecachingpoc.data;
 
 import android.content.Context;
 import android.util.Log;
+
+import com.incture.mobility.imagecachingpoc.model.CardItem;
 
 import java.util.UUID;
 
